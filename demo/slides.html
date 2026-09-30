@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HeatCommons demo slides</title>
+  <style>
+    :root {
+      --paper: #f4f5ef;
+      --white: #fbfcf7;
+      --ink: #21362d;
+      --green: #264737;
+      --green-2: #3f6750;
+      --muted: #758179;
+      --line: #dfe4d9;
+      --lime: #d5f173;
+      --coral: #e88764;
+      --water: #55aaa3;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+    body { font-family: Arial, "Liberation Sans", sans-serif; color: var(--ink); }
+    .slide {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      padding: 88px 132px;
+      background:
+        radial-gradient(circle at 82% 12%, rgba(213, 241, 115, .20), transparent 460px),
+        linear-gradient(135deg, #f8f9f3 0%, var(--paper) 65%, #eef1e7 100%);
+    }
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .2;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(38,71,55,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(38,71,55,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    .brandline, .footline { position: absolute; z-index: 2; left: 132px; right: 132px; display: flex; align-items: center; justify-content: space-between; }
+    .brandline { top: 64px; }
+    .brand { display: flex; align-items: center; gap: 14px; font-size: 20px; font-weight: 800; letter-spacing: -.7px; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; background: var(--green); color: var(--lime); border-radius: 12px 12px 12px 4px; transform: rotate(-2deg); }
+    .brand-mark svg { width: 22px; height: 22px; }
+    .brand span:last-child span { color: #77866e; font-weight: 600; }
+    .eyebrow { color: #738173; font-size: 15px; font-weight: 800; letter-spacing: 2.3px; text-transform: uppercase; }
+    .footline { bottom: 190px; border-top: 1px solid rgba(38,71,55,.17); padding-top: 22px; color: #778179; font-size: 14px; letter-spacing: .7px; }
+    .footline strong { color: var(--green); font-weight: 700; }
+    h1, h2, p { margin: 0; }
+    h1 { font-size: 94px; line-height: 1.02; letter-spacing: -5.5px; font-weight: 760; }
+    h2 { font-size: 74px; line-height: 1.06; letter-spacing: -4px; font-weight: 740; }
+    .lede { color: #66746a; font-size: 29px; line-height: 1.45; }
+    .cover .copy { position: absolute; z-index: 1; top: 300px; left: 146px; width: 850px; }
+    .cover h1 { margin-top: 22px; }
+    .cover .lede { width: 700px; margin-top: 30px; }
+    .cover .tag { display: inline-flex; align-items: center; gap: 11px; margin-top: 48px; padding: 13px 19px; background: rgba(255,255,255,.74); border: 1px solid var(--line); border-radius: 999px; color: var(--green); font-size: 16px; font-weight: 700; }
+    .tag-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--coral); }
+    .map-art { position: absolute; z-index: 1; width: 760px; height: 620px; right: 128px; top: 176px; }
+    .map-frame { position: absolute; inset: 20px 16px 14px; overflow: hidden; border: 1px solid rgba(38,71,55,.15); border-radius: 34px; background: #e9eee3; box-shadow: 0 28px 70px rgba(38,71,55,.10); }
+    .map-frame::before { content: ""; position:absolute; inset:0; background: radial-gradient(ellipse at 25% 78%, rgba(85,170,163,.30), transparent 35%), radial-gradient(ellipse at 72% 25%, rgba(213,241,115,.55), transparent 34%); }
+    .road { position:absolute; height:22px; border: 1px solid rgba(80,105,84,.19); background: rgba(250,251,245,.85); border-radius:999px; transform-origin:center; }
+    .r1 { width:900px; left:-95px; top:182px; transform:rotate(28deg); }
+    .r2 { width:850px; left:4px; top:398px; transform:rotate(-33deg); }
+    .r3 { width:820px; left:-60px; top:535px; transform:rotate(14deg); }
+    .r4 { width:720px; left:315px; top:20px; transform:rotate(77deg); }
+    .r5 { width:630px; left:72px; top:316px; transform:rotate(90deg); }
+    .map-label { position:absolute; z-index:1; color:#738173; font-size:14px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+    .ml1 { left:76px; top:130px; } .ml2 { right:58px; top:350px; } .ml3 { left:235px; bottom:78px; }
+    .route-svg { position:absolute; inset:0; z-index:2; width:100%; height:100%; }
+    .pin { position:absolute; z-index:3; width:52px; height:52px; display:grid; place-items:center; border:5px solid white; border-radius:50% 50% 50% 8px; box-shadow:0 10px 24px rgba(34,63,46,.19); transform:rotate(-45deg); }
+    .pin svg { width:22px; height:22px; transform:rotate(45deg); }
+    .pin.start { left:117px; top:476px; color:var(--lime); background:var(--green); }
+    .pin.pause { right:123px; top:223px; color:white; background:var(--water); }
+    .pin.end { right:116px; bottom:109px; color:white; background:var(--coral); }
+    .map-callout { position:absolute; z-index:4; display:flex; align-items:center; gap:11px; padding:13px 15px; color:var(--green); background:rgba(251,252,247,.96); border:1px solid rgba(38,71,55,.12); border-radius:16px; box-shadow:0 12px 30px rgba(34,63,46,.10); font-size:14px; font-weight:700; }
+    .map-callout b { display:block; font-size:15px; } .map-callout small { display:block; margin-top:4px; color:var(--muted); font-size:12px; font-weight:500; }
+    .callout-weather { left:50px; top:48px; } .callout-route { right:35px; bottom:43px; }
+    .mini-thermo { width:33px;height:33px;display:grid;place-items:center;background:#f8e9df;color:#b86243;border-radius:10px;font-size:17px; }
+    .mini-route { width:33px;height:33px;display:grid;place-items:center;background:#e6efdb;color:var(--green);border-radius:10px;font-size:19px; }
+    .content { position:relative; z-index:1; display:grid; grid-template-columns: 1fr 1fr; gap:90px; align-items:center; height:100%; padding-top:34px; }
+    .content-copy { max-width:740px; }
+    .content-copy h2 { margin-top:24px; }
+    .content-copy .lede { margin-top:28px; max-width:700px; }
+    .steps { position:relative; display:grid; gap:18px; }
+    .steps::before { content:""; position:absolute; top:72px; bottom:72px; left:43px; width:2px; background:linear-gradient(var(--green-2),rgba(63,103,80,.14)); }
+    .step { position:relative; display:flex; align-items:center; gap:22px; min-height:132px; padding:22px 26px; border:1px solid rgba(38,71,55,.12); background:rgba(251,252,247,.86); border-radius:24px; box-shadow:0 18px 38px rgba(38,71,55,.055); }
+    .step-number { position:relative; z-index:1; width:44px;height:44px; flex:0 0 44px;display:grid;place-items:center;border:5px solid var(--paper);border-radius:50%;background:var(--green);color:var(--lime);font-size:13px;font-weight:800; }
+    .step strong { display:block; color:var(--green); font-size:25px; letter-spacing:-.5px; }
+    .step span { display:block; margin-top:7px; color:var(--muted); font-size:16px; }
+    .note-strip { position:absolute; z-index:2; left:132px; right:132px; bottom:260px; display:flex; align-items:center; gap:15px; color:#627164; font-size:16px; }
+    .note-strip b { display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#f7e6dc;color:#b96747;font-size:15px; }
+    .data-grid { display:grid; gap:17px; }
+    .data-card { display:grid; grid-template-columns:70px 1fr auto; align-items:center; gap:20px; padding:23px 25px; border:1px solid rgba(38,71,55,.12); background:rgba(251,252,247,.91); border-radius:22px; box-shadow:0 16px 32px rgba(38,71,55,.045); }
+    .data-icon { width:62px;height:62px;display:grid;place-items:center;border-radius:18px;background:#e5ecd9;color:var(--green);font-size:27px;font-weight:800; }
+    .data-card:nth-child(2) .data-icon { background:#e0f0ed;color:#3f8981; }
+    .data-card:nth-child(3) .data-icon { background:#f8e8df;color:#bd6e4e; }
+    .data-card strong { display:block;font-size:23px;color:var(--green); }
+    .data-card span { display:block;margin-top:6px;color:var(--muted);font-size:15px; }
+    .source-pill { padding:9px 13px;border:1px solid #e0e5d9;border-radius:999px;color:#647467;font-size:12px;font-weight:800;letter-spacing:.5px; }
+    .flow-arrow { display:flex; justify-content:center; height:18px; color:#93a18e; font-size:23px; line-height:14px; }
+    .data-footnote { margin-top:14px;padding:17px 20px;border-radius:16px;background:var(--green);color:#e9f0dc;font-size:16px;line-height:1.45; }
+    .data-footnote strong { color:var(--lime); }
+    .trust-copy { max-width:780px; }
+    .trust-copy h2 { max-width:700px; }
+    .trust-list { display:grid;gap:19px;margin-top:35px; }
+    .trust-row { display:grid;grid-template-columns:45px 1fr;align-items:start;gap:15px; }
+    .check { width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#e5ecd9;color:var(--green);font-size:18px;font-weight:900; }
+    .trust-row strong { display:block;font-size:21px;color:var(--green); }
+    .trust-row span { display:block;margin-top:5px;color:var(--muted);font-size:16px;line-height:1.4; }
+    .local-card { position:relative; min-height:445px;padding:36px 38px;border-radius:30px;background:var(--green);color:var(--white);box-shadow:0 28px 65px rgba(38,71,55,.15);overflow:hidden; }
+    .local-card::after { content:"";position:absolute;width:400px;height:400px;right:-150px;top:-160px;border:1px solid rgba(213,241,115,.18);border-radius:50%;box-shadow:0 0 0 38px rgba(213,241,115,.035),0 0 0 82px rgba(213,241,115,.025); }
+    .local-lock { position:relative;z-index:1;width:58px;height:58px;display:grid;place-items:center;border-radius:18px;background:rgba(213,241,115,.16);color:var(--lime);font-size:26px; }
+    .local-card .eyebrow { position:relative;z-index:1;margin-top:44px;color:#c5d3c2; }
+    .local-card h3 { position:relative;z-index:1;margin-top:18px;max-width:400px;font-size:43px;line-height:1.08;letter-spacing:-1.8px; }
+    .local-card p { position:relative;z-index:1;margin-top:19px;max-width:425px;color:#d5dfd2;font-size:17px;line-height:1.55; }
+    .cta-copy { position:absolute; z-index:1; top:302px; left:146px; width:980px; }
+    .cta-copy h2 { margin-top:23px;font-size:90px;max-width:960px; }
+    .cta-copy .lede { margin-top:26px;max-width:730px; }
+    .repo { display:inline-flex;align-items:center;gap:12px;margin-top:35px;padding:16px 21px;border-radius:14px;background:var(--green);color:var(--lime);font-size:17px;font-weight:700; }
+    .cta-graphic { position:absolute;right:160px;top:270px;width:460px;height:460px;border:1px solid rgba(38,71,55,.14);border-radius:50%;display:grid;place-items:center; }
+    .cta-graphic::before,.cta-graphic::after { content:"";position:absolute;border:1px solid rgba(38,71,55,.12);border-radius:50%; }
+    .cta-graphic::before { inset:38px; }.cta-graphic::after { inset:82px; }
+    .cta-core { position:relative;z-index:1;width:190px;height:190px;display:grid;place-items:center;border-radius:56px 56px 56px 18px;background:var(--green);color:var(--lime);transform:rotate(-4deg);box-shadow:0 20px 35px rgba(38,71,55,.15); }
+    .cta-core svg { width:92px;height:92px; }
+    .orbit { position:absolute;z-index:2;width:58px;height:58px;display:grid;place-items:center;border:5px solid var(--paper);border-radius:20px;background:var(--white);color:var(--green);font-size:23px;box-shadow:0 10px 25px rgba(38,71,55,.12); }
+    .o1 { top:37px;left:171px }.o2 { right:32px;top:195px;background:#e0f0ed;color:#448f87 }.o3 { left:77px;bottom:41px;background:#f8e8df;color:#bd6e4e }
+    .kicker-line { display:flex;align-items:center;gap:14px; }
+    .kicker-line::after { content:"";width:56px;height:2px;background:var(--coral); }
+  </style>
+</head>
+<body>
+  <section class="slide cover" id="cover">
+    <div class="brandline"><div class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3C9 8 5 11 5 15a7 7 0 0 0 14 0c0-4-4-7-7-12Z"/><path d="M9 16c.3 1.5 1.2 2.2 2.5 2.5"/></svg></span><span>heat<span>commons</span></span></div><span class="eyebrow">Community heat planning · field note 01</span></div>
+    <div class="copy"><div class="eyebrow kicker-line">Make room for a cooler day</div><h1>HeatCommons</h1><p class="lede">A clearer way to plan the small decisions around a hot day.</p><span class="tag"><i class="tag-dot"></i> Forecast · places · walking options</span></div>
+    <div class="map-art"><div class="map-frame"><i class="road r1"></i><i class="road r2"></i><i class="road r3"></i><i class="road r4"></i><i class="road r5"></i><span class="map-label ml1">City blocks</span><span class="map-label ml2">A place to pause</span><span class="map-label ml3">Everyday trip</span><svg class="route-svg" viewBox="0 0 760 690" fill="none"><path d="M151 509C228 480 222 380 326 354C415 333 419 253 516 234C571 223 603 296 624 373C638 425 605 492 553 532" stroke="#3f6750" stroke-width="9" stroke-linecap="round" stroke-dasharray="1 0"/><path d="M151 509C228 480 222 380 326 354C415 333 419 253 516 234" stroke="#d5f173" stroke-width="4" stroke-linecap="round"/></svg><span class="pin start"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></span><span class="pin pause"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/></svg></span><span class="pin end"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/></svg></span><span class="map-callout callout-weather"><i class="mini-thermo">°</i><span><b>Feels like</b><small>Next hours, in context</small></span></span><span class="map-callout callout-route"><i class="mini-route">↗</i><span><b>Walking network</b><small>Compare the mapped options</small></span></span></div></div>
+    <div class="footline"><strong>HEATCOMMONS</strong><span>Open-source planning prototype</span><span>KUALA LUMPUR · DEHRADUN</span></div>
+  </section>
+
+  <section class="slide" id="decisions">
+    <div class="brandline"><div class="brand"><span class="brand-mark">H</span><span>heat<span>commons</span></span></div><span class="eyebrow">01 / The everyday problem</span></div>
+    <div class="content"><div class="content-copy"><div class="eyebrow kicker-line">A trip has more than one decision</div><h2>Heat planning is a chain of small choices.</h2><p class="lede">The forecast, a place to pause, and the walking network usually live in separate steps. HeatCommons brings those clues into one neighborhood plan.</p></div><div class="steps"><div class="step"><i class="step-number">01</i><div><strong>How will it feel?</strong><span>Look beyond the air temperature.</span></div></div><div class="step"><i class="step-number">02</i><div><strong>Where could I pause?</strong><span>Explore water, green space, and indoor places.</span></div></div><div class="step"><i class="step-number">03</i><div><strong>Which walk fits?</strong><span>Compare a footpath preference with distance.</span></div></div></div></div>
+    <div class="note-strip"><b>i</b><span>A mapped place is a clue to check, not a promise of shade, access, or availability.</span></div>
+    <div class="footline"><strong>THE PRODUCT IDEA</strong><span>Connect the next few hours to the next few blocks</span><span>01</span></div>
+  </section>
+
+  <section class="slide" id="signals">
+    <div class="brandline"><div class="brand"><span class="brand-mark">H</span><span>heat<span>commons</span></span></div><span class="eyebrow">02 / A small, open stack</span></div>
+    <div class="content"><div class="content-copy"><div class="eyebrow kicker-line">Three open signals, one simple flow</div><h2>Connect the next hours to the next few blocks.</h2><p class="lede">Each layer answers a different question. Sources stay visible, and the route stays a walking-network comparison.</p></div><div class="data-grid"><div class="data-card"><i class="data-icon">°</i><div><strong>Local heat outlook</strong><span>Apparent temperature · forecast estimate</span></div><i class="source-pill">OPEN-METEO</i></div><i class="flow-arrow">↓</i><div class="data-card"><i class="data-icon">⌖</i><div><strong>Nearby mapped places</strong><span>Water · green space · indoor public places</span></div><i class="source-pill">OPENSTREETMAP</i></div><i class="flow-arrow">↓</i><div class="data-card"><i class="data-icon">↗</i><div><strong>Pedestrian route options</strong><span>Mapped footpaths · distance-focused walk</span></div><i class="source-pill">VALHALLA</i></div><div class="data-footnote"><strong>Built to keep working:</strong> weather and mapped listings have labeled fallbacks; local notes stay on this device.</div></div></div>
+    <div class="footline"><strong>THE DATA MODEL</strong><span>Small requests · visible sources · local-first notes</span><span>02</span></div>
+  </section>
+
+  <section class="slide" id="trust">
+    <div class="brandline"><div class="brand"><span class="brand-mark">H</span><span>heat<span>commons</span></span></div><span class="eyebrow">03 / Trust belongs in the interface</span></div>
+    <div class="content"><div class="trust-copy"><div class="eyebrow kicker-line">Helpful means honest</div><h2>Useful planning starts with clear limits.</h2><div class="trust-list"><div class="trust-row"><i class="check">✓</i><div><strong>Forecast is not an alert</strong><span>Apparent temperature is an estimate, not a personal risk score.</span></div></div><div class="trust-row"><i class="check">✓</i><div><strong>Map tags are not guarantees</strong><span>Confirm opening, public access, and water before travelling.</span></div></div><div class="trust-row"><i class="check">✓</i><div><strong>A walking route is not a cool route</strong><span>Street shade, access conditions, and closures are not measured.</span></div></div></div></div><aside class="local-card"><div class="local-lock">⌑</div><div class="eyebrow">Your contribution</div><h3>Local notes stay local.</h3><p>A place note is saved in this browser only. Community sharing is not connected in this prototype.</p></aside></div>
+    <div class="footline"><strong>DESIGNED FOR CARE</strong><span>General guidance only · follow local official advice</span><span>03</span></div>
+  </section>
+
+  <section class="slide" id="closing">
+    <div class="brandline"><div class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M12 3C9 8 5 11 5 15a7 7 0 0 0 14 0c0-4-4-7-7-12Z"/><path d="M9 16c.3 1.5 1.2 2.2 2.5 2.5"/></svg></span><span>heat<span>commons</span></span></div><span class="eyebrow">An open-source MVP</span></div>
+    <div class="cta-copy"><div class="eyebrow kicker-line">Make room for a cooler day</div><h2>A calmer starting point for a hotter day.</h2><p class="lede">Built around local context, clear sources, and the choices people make on the way there.</p><div class="repo"><span>↗</span> github.com/Georgefifth/heatcommons</div></div>
+    <div class="cta-graphic"><div class="cta-core"><svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3"><path d="M32 8C24 20 14 29 14 40a18 18 0 0 0 36 0C50 29 40 20 32 8Z"/><path d="M25 42c1 4 3 6 7 7"/></svg></div><i class="orbit o1">°</i><i class="orbit o2">⌖</i><i class="orbit o3">↗</i></div>
+    <div class="footline"><strong>HEATCOMMONS</strong><span>MIT · Public repository · Prototype for Kuala Lumpur and Dehradun</span><span>THANK YOU</span></div>
+  </section>
+</body>
+</html>

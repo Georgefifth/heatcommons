@@ -2,6 +2,8 @@
 
 HeatCommons is a community-first heat planning prototype for people who travel or work outdoors. It brings a local hourly apparent-temperature forecast, nearby mapped places, and pedestrian route options into one calm planning flow.
 
+**Live demo:** [georgefifth.github.io/heatcommons](https://georgefifth.github.io/heatcommons/). The `main` branch deploys to GitHub Pages through GitHub Actions.
+
 ## What you can do
 
 - Check current apparent temperature and the next few hours of forecast.
@@ -28,6 +30,10 @@ Create a production bundle with `npm run build`.
 ## Firefox browser checks
 
 Install the Playwright Firefox build once with `npx playwright install firefox`, then run the browser flow with `npm run test:e2e`. The flow covers desktop controls, city and route switching, place filters, the local place-note form, and the mobile layout. Desktop and mobile screenshots are saved under `artifacts/firefox/`.
+
+## Demo video source
+
+The narrated walkthrough uses the scene list in [`demo/scenes.cjs`](demo/scenes.cjs) and the original slide source and PNG frames in [`demo/slides.html`](demo/slides.html) and `demo/slides/`.
 
 ## Data sources and limits
 
