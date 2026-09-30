@@ -3,20 +3,31 @@ const slide = (name) => path.join(__dirname, "slides", `${name}.png`);
 
 module.exports = [
   {
+    name: "live-hook",
+    url: process.env.HEATCOMMONS_DEMO_URL || "http://127.0.0.1:5173/",
+    session: "walkthrough",
+    actions: [
+      { type: "waitFor", sel: ".weather-estimate-note" },
+      { type: "wait", ms: 3000 },
+    ],
+    vo: "For people who travel or work outdoors, heat reshapes small everyday choices.",
+  },
+  {
     name: "opening",
+    session: "walkthrough",
     duration: 6,
     card: { image: slide("cover") },
     vo: "HeatCommons brings the forecast, nearby pauses, and a walking plan into one clear place.",
   },
   {
     name: "everyday-choices",
+    session: "walkthrough",
     duration: 13,
     card: { image: slide("decisions") },
     vo: "A useful outdoor plan connects how the weather may feel with nearby places to pause and the walking network between them. HeatCommons brings that context into view for commuters and outdoor workers.",
   },
   {
     name: "forecast-in-context",
-    url: process.env.HEATCOMMONS_DEMO_URL || "http://127.0.0.1:5173/",
     session: "walkthrough",
     actions: [
       { type: "waitFor", sel: ".weather-estimate-note" },
