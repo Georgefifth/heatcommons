@@ -1,7 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap");
-
 :root {
-  font-family: "DM Sans", "Segoe UI", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   color: #23332c;
   background: #f4f5ef;
   font-synthesis: none;
@@ -100,7 +98,7 @@ a {
 }
 
 .brand-word {
-  font-family: "Manrope", "DM Sans", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.8px;
@@ -275,7 +273,7 @@ a {
 .hero h1 {
   margin: 17px 0 13px;
   color: #23392e;
-  font-family: "Manrope", "DM Sans", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(39px, 4.15vw, 59px);
   font-weight: 700;
   letter-spacing: -3.4px;
@@ -368,7 +366,7 @@ a {
 
 .weather-city {
   margin-top: 8px;
-  font-family: "Manrope", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.3px;
@@ -377,7 +375,7 @@ a {
 .weather-city span {
   margin-left: 8px;
   color: #a8b6a9;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0;
@@ -402,7 +400,7 @@ a {
 }
 
 .feels-number {
-  font-family: "Manrope", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   color: #f3f5e6;
   font-size: 52px;
   font-weight: 600;
@@ -580,7 +578,7 @@ a {
 .guidance-heading h2 {
   margin: 5px 0 0;
   color: #263c30;
-  font-family: "Manrope", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.7px;
@@ -713,7 +711,7 @@ a {
 
 .map-viewport .leaflet-container {
   background: #e6eadd;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   z-index: 0;
 }
 
@@ -1018,7 +1016,7 @@ a {
   overflow: hidden;
   margin: 4px 0 2px;
   color: #34493a;
-  font-family: "Manrope", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 11px;
   font-weight: 700;
   text-overflow: ellipsis;
@@ -1031,10 +1029,7 @@ a {
   color: #8a948a;
   font-size: 8px;
   line-height: 1.45;
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  white-space: normal;
 }
 
 .place-source-link {
@@ -1442,7 +1437,7 @@ a {
 
 .best-window-copy strong {
   color: #445b3d;
-  font-family: "Manrope", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 12px;
   font-weight: 800;
 }
@@ -1603,7 +1598,7 @@ a {
 .guidance-card h3 {
   margin: 4px 0 4px;
   color: #445447;
-  font-family: "Manrope", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 11px;
   font-weight: 800;
 }
@@ -1755,7 +1750,7 @@ a {
 .report-modal h2 {
   margin: 6px 0 6px;
   color: #2a4032;
-  font-family: "Manrope", sans-serif;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 23px;
   letter-spacing: -0.8px;
 }

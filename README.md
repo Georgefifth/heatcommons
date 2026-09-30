@@ -25,6 +25,10 @@ npm run dev
 
 Create a production bundle with `npm run build`.
 
+## Firefox browser checks
+
+Install the Playwright Firefox build once with `npx playwright install firefox`, then run the browser flow with `npm run test:e2e`. The flow covers desktop controls, city and route switching, place filters, the local place-note form, and the mobile layout. Desktop and mobile screenshots are saved under `artifacts/firefox/`.
+
 ## Data sources and limits
 
 - Forecast: [Open-Meteo Forecast API](https://open-meteo.com/en/docs). If it is unavailable, the page shows clearly labelled sample conditions. Apparent temperature is a forecast estimate, not an official heat warning or personal risk score.

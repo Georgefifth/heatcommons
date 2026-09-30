@@ -38,5 +38,6 @@ The project is a hackathon MVP. Keep the first release easy to run and demonstra
 
 - npm run dev starts the local development server.
 - npm run build creates the static production bundle.
+- npm run test:e2e runs the desktop and mobile Firefox browser flows. Run npx playwright install firefox once before the first browser run.
 
 Do not add credentials, personal data, or unrelated files from the surrounding home directory to this project.

@@ -175,15 +175,15 @@ function osmPlace(element: OSMElement, cityId: CityId, freshness: string): Spot 
   if (tags.amenity === "drinking_water") {
     kind = "water";
     fallbackTitle = "Mapped drinking water point";
-    note = "Listed as a drinking water point in OpenStreetMap. Availability and public access are not verified.";
+    note = "OSM lists a drinking water point. Public access and water availability are unverified.";
   } else if (tags.leisure === "park" || tags.leisure === "garden") {
     kind = "shade";
     fallbackTitle = "Mapped green space";
-    note = "Listed as a park or garden in OpenStreetMap. Shade and public access are not verified.";
+    note = "OSM lists a park or garden. Shade and public access are unverified.";
   } else if (tags.amenity === "library" || tags.amenity === "community_centre") {
     kind = "cooling";
     fallbackTitle = "Mapped indoor public place";
-    note = "Listed as a library or community centre in OpenStreetMap. Cooling, opening hours, and public access are not verified.";
+    note = "OSM lists an indoor amenity. Cooling, hours, and public access are unverified.";
   } else {
     return null;
   }
@@ -339,6 +339,26 @@ function MapRecenter({ city, tick }: { city: City; tick: number }) {
   useEffect(() => {
     map.setView(city.center, 14, { animate: true });
   }, [city, map, tick]);
+  return null;
+}
+
+function MapSizeObserver() {
+  const map = useMap();
+
+  useEffect(() => {
+    const container = map.getContainer();
+    const invalidateSize = () => map.invalidateSize({ pan: false, debounceMoveend: true });
+    const observer = new ResizeObserver(invalidateSize);
+    observer.observe(container);
+    const frame = window.requestAnimationFrame(invalidateSize);
+    const timer = window.setTimeout(invalidateSize, 250);
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timer);
+    };
+  }, [map]);
+
   return null;
 }
 
@@ -672,9 +692,9 @@ function App() {
             </select>
             <ChevronDown size={14} />
           </label>
-          <button className="button button-dark button-report" onClick={openReport} type="button">
+          <button aria-label="Add a place" className="button button-dark button-report" onClick={openReport} type="button">
             <Plus size={16} />
-            <span>Share a place</span>
+            <span>Add a place</span>
           </button>
         </div>
       </header>
@@ -780,6 +800,7 @@ function App() {
                   style={{ width: "100%", height: "100%" }}
                 >
                   <MapRecenter city={city} tick={recenterTick} />
+                  <MapSizeObserver />
                   <ReportPinPicker
                     active={pinPickerActive}
                     onPick={(position) => {
